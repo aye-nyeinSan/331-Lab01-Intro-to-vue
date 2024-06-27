@@ -12,7 +12,8 @@ createApp({
         return variants.value[selectedVariant.value].quantity
     })
     const inventory = ref(3);
-    const onSale = ref(true);
+    const onSale =ref(true);
+    
     const details = ref(["50% cotton", "30% wool", "20% polyester"]);
     const variants = ref([
       { id: 2234, color: "green", image:'./assets/images/socks_green.jpg' ,quantity:50},
@@ -22,6 +23,10 @@ createApp({
     const sizes = ref(["S","M","L"])
     const title=computed(()=>{
         return brand.value+' '+ product.value
+    })
+   
+    const salepost=computed(()=>{
+        return brand.value+' '+ product.value +' '+ "is on sale"
     })
     const cart = ref(0)
     const addToCart=()=>{
@@ -37,10 +42,13 @@ createApp({
         }
      }
      const updateVariant=(index)=>{
-        selectedVariant.value = index
-     }
+        selectedVariant.value = index //0
+     } 
     return {
       title,
+      salepost,
+      brand,
+      product,
       image,
       productLink,
       inStock,
