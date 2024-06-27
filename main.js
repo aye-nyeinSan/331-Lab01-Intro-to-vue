@@ -1,8 +1,9 @@
-const { createApp, ref } = Vue;
+const { createApp, ref,computed } = Vue;
 
 createApp({
   setup() {
     const product = ref("Boots");
+    const brand = ref ('SE 331');
     const image = ref("./assets/images/socks_green.jpg");
     const productLink = ref("https://www.camt.cmu.ac.th/index.php/th/");
     const inStock = ref(true);
@@ -14,7 +15,9 @@ createApp({
       { id: 2235, color: "blue",image :'./assets/images/socks_blue.jpg' },
     ]);
     const sizes = ref(["S","M","L"])
-
+    const title=computed(()=>{
+        return brand.value+' '+ product.value
+    })
     const cart = ref(0)
     const addToCart=()=>{
         cart.value+=1
@@ -29,7 +32,7 @@ createApp({
         }
      }
     return {
-      product,
+      title,
       image,
       productLink,
       inStock,
