@@ -1,4 +1,5 @@
 const { ref, computed } = Vue;
+
 const productDisplay = {
   template:
     /*html*/
@@ -41,24 +42,33 @@ const productDisplay = {
           <span>Sizes: </span>
           <li v-for="size in  sizes">{{ size }},</li>
         </ul>
-        <button class="button" :disabled="!inStock" :class="{disabledButton: !inStock}" @click="addToCart">Add To Cart</button>
+        <button class="button" :disabled="!inStock" :class="{disabledButton: !inStock}" 
+        @click="addToCart">Add To Cart</button>
         
       </div>
        <!-- 6.7 -->
       <button class="button" @click="updateStock">Buy</button>
+      <review-list  v-if="reviews.length" :reviews="reviews" ></review-list>
+      <review-form @review-submitted="addReview"></review-form>
    
-    `,props:{
-        premium: Boolean
-    },
+    `,
+  props: {
+    premium: Boolean,
+  },
 
   setup(props) {
-    const shipping = computed(()=>{
-        if(props.premium){
-            return 'Free'
-        }else{
-            return 30
-        }
-    })
+    const reviews = ref([]);
+    const addReview = (review) => {
+      reviews.value.push(review);
+    };
+
+    const shipping = computed(() => {
+      if (props.premium) {
+        return "Free";
+      } else {
+        return 30;
+      }
+    });
     const product = ref("Boots");
     const brand = ref("SE 331");
     const image = computed(() => {
@@ -111,7 +121,7 @@ const productDisplay = {
     const updateVariant = (index) => {
       selectedVariant.value = index; //0
     };
-    
+
     return {
       title,
       salepost,
@@ -130,8 +140,9 @@ const productDisplay = {
       updateImage,
       updateStock,
       updateVariant,
-      shipping
+      shipping,
+      addReview,
+      reviews
     };
   },
 };
-export default productDisplay;
