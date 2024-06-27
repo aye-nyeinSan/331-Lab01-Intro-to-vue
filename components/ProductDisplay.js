@@ -20,6 +20,7 @@ const productDisplay = {
 
         <p v-else-if="inventory <=10 && inventory > 0">Almost out of Stock</p>
         <p v-else>Out of Stock</p>
+        <p>Shipping : {{shipping}}</p>
         <!-- 4.9  + 8.5 -->
         <p v-if="onSale">{{salepost}}</p>
         <ul>
@@ -46,8 +47,18 @@ const productDisplay = {
        <!-- 6.7 -->
       <button class="button" @click="updateStock">Buy</button>
    
-    `,
-  setup() {
+    `,props:{
+        premium: Boolean
+    },
+
+  setup(props) {
+    const shipping = computed(()=>{
+        if(props.premium){
+            return 'Free'
+        }else{
+            return 30
+        }
+    })
     const product = ref("Boots");
     const brand = ref("SE 331");
     const image = computed(() => {
@@ -100,6 +111,7 @@ const productDisplay = {
     const updateVariant = (index) => {
       selectedVariant.value = index; //0
     };
+    
     return {
       title,
       salepost,
@@ -118,6 +130,7 @@ const productDisplay = {
       updateImage,
       updateStock,
       updateVariant,
+      shipping
     };
   },
 };
