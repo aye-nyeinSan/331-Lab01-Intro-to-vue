@@ -13,9 +13,11 @@
     <div id="app">
       <h1>Product goes here</h1>
       <div class="nav-bar"></div>
-      <div class="cart">Cart({{cart}})</div>
-      <product-display :premium="premium"></product-display>
-   
+      <!-- <div class="cart">Cart({{cart}})</div>  -->
+       <!-- 10.5 -->
+      <div class="cart">Total: {{cart.length}}</div>
+      <product-display :premium="premium" @add-to-cart="updateCart" @remove-from-cart="removeFromCart"></product-display>
+     
     </div>
     
 

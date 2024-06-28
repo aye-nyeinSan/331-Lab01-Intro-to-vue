@@ -42,9 +42,9 @@ const productDisplay = {
           <span>Sizes: </span>
           <li v-for="size in  sizes">{{ size }},</li>
         </ul>
-        <button class="button" :disabled="!inStock" :class="{disabledButton: !inStock}" 
-        @click="addToCart">Add To Cart</button>
-        
+        <button class="button" :disabled="!inStock" :class="{disabledButton: !inStock}" @click="addToCart">Add To Cart</button>
+        <button class="button" :disabled="!inStock" :class="{disabledButton: !inStock}" @click="removeFromCart">Remove From Cart</button>
+
       </div>
        <!-- 6.7 -->
       <button class="button" @click="updateStock">Buy</button>
@@ -56,7 +56,7 @@ const productDisplay = {
     premium: Boolean,
   },
 
-  setup(props) {
+  setup(props,{emit}) {
     const reviews = ref([]);
     const addReview = (review) => {
       reviews.value.push(review);
@@ -107,8 +107,12 @@ const productDisplay = {
     });
     const cart = ref(0);
     const addToCart = () => {
-      cart.value += 1;
+     emit('add-to-cart',variants.value[selectedVariant.value].id)
     };
+    const removeFromCart = () => {
+      emit('remove-from-cart',variants.value[selectedVariant.value].id)
+     };
+    
     const updateImage = (variantImage) => {
       image.value = variantImage;
     };
@@ -119,7 +123,7 @@ const productDisplay = {
       }
     };
     const updateVariant = (index) => {
-      selectedVariant.value = index; //0
+      selectedVariant.value = index; 
     };
 
     return {
@@ -142,7 +146,8 @@ const productDisplay = {
       updateVariant,
       shipping,
       addReview,
-      reviews
+      reviews,
+      removeFromCart
     };
   },
 };
