@@ -1,4 +1,4 @@
-export const productDetails = {
+ const productDetails = {
   template: `
   <h1> Details</h1>
   <ul>
@@ -6,6 +6,6 @@ export const productDetails = {
   </ul>
   `,
   props: {
-   details:[]
+   details: Array
   },
 };

@@ -24,9 +24,8 @@ const productDisplay = {
         <p>Shipping : {{shipping}}</p>
         <!-- 4.9  + 8.5 -->
         <p v-if="onSale">{{salepost}}</p>
-        <ul>
-          <li v-for="detail in details">{{ detail }}</li>
-        </ul>
+        <!-- 9.10 -->
+        <product-details :details="details"></product-details>
         <!-- 8.4 -->
         <div
           v-for="(variant,index) in variants"
