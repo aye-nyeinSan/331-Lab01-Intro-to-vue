@@ -1,4 +1,4 @@
-const { createApp, ref , computed } = Vue;
+const { createApp, ref , computed, toRefs } = Vue;
 
 
 const app = createApp({
@@ -11,7 +11,7 @@ const app = createApp({
         premium
     }
   },
-})
+}) 
 
 app.component('product-display',productDisplay)
 app.component('review-form',reviewForm)
