@@ -1,4 +1,4 @@
-const { reactive , toRefs} = Vue;
+const { reactive, toRefs } = Vue;
 const reviewForm = {
   template:
     /*html*/
@@ -22,34 +22,40 @@ const reviewForm = {
       <input id="recommend" v-model="recommend"> </input>
       <input class="button" type="submit" value="Submit">
       </form>`,
-    setup(props,{emit}){
-        const form = reactive({
-            name: '',
-            review: '',
-            rating: null,
-            recommend:''
-        })
-        function onSubmit(){
-            console.log(form.name);
-            if ( form.name === ''|| form.review === '' || form.rating === null || form.recommend=='') {
-                alert('Reiew is incomplete. Please fill out every field.')
-                return
-            }
-            const productReview ={
-                name: form.name,
-                review: form.review,
-                rating: form.rating,
-                recommend: form.recommend
-            }
-            emit('review-submitted', productReview)
-            form.name=''
-            form.review =''
-            form.rating = null
-            form.recommend =''
-        }
-        return {
-            ...toRefs(form),
-            onSubmit,
-        }
+  setup(props, { emit }) {
+    const form = reactive({
+      name: "",
+      review: "",
+      rating: null,
+      recommend: "",
+    });
+    function onSubmit() {
+     
+      if (
+        form.name === "" ||
+        form.review === "" ||
+        form.rating === null ||
+        form.recommend == ""
+      ) {
+        alert("Reiew is incomplete. Please fill out every field.");
+        return;
+      }
+      const productReview = {
+        name: form.name,
+        review: form.review,
+        rating: form.rating,
+        recommend: form.recommend,
+      };
+      
+      emit("review-submitted", productReview);
+      form.name = "";
+      form.review = "";
+      form.rating = null;
+      form.recommend = "";
     }
+    return {
+      ...toRefs(form),
+      onSubmit,
+    };
+  },
 };

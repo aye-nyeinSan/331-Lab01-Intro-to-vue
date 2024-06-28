@@ -54,10 +54,13 @@ const productDisplay = {
   props: {
     premium: Boolean,
   },
+  emits: ['add-to-cart', 'remove-from-cart'],
 
   setup(props,{emit}) {
+      
     const reviews = ref([]);
     const addReview = (review) => {
+      console.log("Review",review);
       reviews.value.push(review);
     };
 
@@ -74,19 +77,22 @@ const productDisplay = {
       return variants.value[selectedVariant.value].image;
     });
     const productLink = ref("https://www.camt.cmu.ac.th/index.php/th/");
+
     const inStock = computed(() => {
       return variants.value[selectedVariant.value].quantity;
     });
+
     const inventory = ref(3);
     const onSale = ref(true);
 
     const details = ref(["50% cotton", "30% wool", "20% polyester"]);
+    
     const variants = ref([
       {
         id: 2234,
         color: "green",
         image: "./assets/images/socks_green.jpg",
-        quantity: 50,
+        quantity: 3,
       },
       {
         id: 2235,
@@ -104,10 +110,12 @@ const productDisplay = {
     const salepost = computed(() => {
       return brand.value + " " + product.value + " " + "is on sale";
     });
-    const cart = ref(0);
+   
+
     const addToCart = () => {
-     emit('add-to-cart',variants.value[selectedVariant.value].id)
+     emit('add-to-cart',variants.value[selectedVariant.value].id) //2234
     };
+
     const removeFromCart = () => {
       emit('remove-from-cart',variants.value[selectedVariant.value].id)
      };
@@ -117,7 +125,9 @@ const productDisplay = {
     };
     const updateStock = () => {
       inventory.value -= 1;
-      if (inventory.value == 0) {
+      variants.value[selectedVariant.value].quantity -=1;
+
+      if (inventory.value == 0 ||variants.value[selectedVariant.value].quantity ==0 ) {
         inStock.value = false;
       }
     };
@@ -138,7 +148,7 @@ const productDisplay = {
       details,
       variants,
       sizes,
-      cart,
+   
       addToCart,
       updateImage,
       updateStock,
