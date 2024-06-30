@@ -8,4 +8,5 @@
   props: {
    details: Array
   },
+  
 };
